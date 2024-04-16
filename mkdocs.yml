@@ -5,12 +5,6 @@ repo_name: fabien-h/athena
 edit_uri: edit/main/docs/
 plugins:
   - search
-  - git-revision-date-localized:
-      enable_creation_date: true
-      fallback_to_build_date: true
-  - git-committers:
-      repository: fabien-h/athena
-      branch: main
 theme:
   name: material
   icon:
