@@ -4,3 +4,4 @@ name = "athena-core"
 version = "0.1.0"
 
 [dependencies]
+serde = {version = "1.0.198", features = ["derive"]}
