@@ -1,0 +1,10 @@
+[workspace]
+members = [
+  "athena-core",
+  "athena-cli",
+  "athena-gui",
+]
+
+[workspace.dependencies]
+serde = {version = "1.0.198", features = ["derive"]}
+serde_json = "1.0.116"
