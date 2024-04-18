@@ -1,0 +1,8 @@
+[package]
+edition = "2021"
+name = "athena-gui"
+version = "0.1.0"
+
+[dependencies]
+athena-core = {path = "../athena-core"}
+yew = "0.21.0"
