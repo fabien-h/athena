@@ -10,44 +10,118 @@ This is a full example to show all the possible fields that can be used in a spe
   "version": "1.0.0",
   "description": "Description of the RPC API",
   "global": {
-    "messageTypes": [
-      // Global message types
-    ],
     "enums": [
       // Global enums
     ],
     "errors": [
-      // Global errors
+      {
+        "name": "InternalServerError",
+        "description": "An unexpected error occurred on the server",
+        "httpCode": 500,
+        "messageType": "ErrorDetails"
+      }
+    ],
+    "requestHeaders": [
+      {
+        "name": "X-API-Key",
+        "description": "The API key for authentication"
+      }
+    ],
+    "responseHeaders": [
+      {
+        "name": "X-Request-ID",
+        "description": "A unique identifier for the request"
+      }
     ]
   },
   "services": [
     {
       "name": "UserService",
       "description": "Service for managing users",
-      "messageTypes": [
-        // Message types scoped to this service
-      ],
       "enums": [
         // Enums scoped to this service
       ],
       "errors": [
         // Errors scoped to this service
       ],
+      "requestHeaders": [
+        {
+          "name": "X-User-Agent",
+          "description": "The user agent string"
+        }
+      ],
+      "responseHeaders": [
+        {
+          "name": "X-Rate-Limit-Remaining",
+          "description": "The number of requests remaining in the current rate limit window"
+        }
+      ],
       "methods": [
         {
           "name": "CreateUser",
           "description": "Creates a new user",
-          "requestMessageType": "CreateUserRequest",
-          "responseMessageType": "User",
+          "enums": [
+            // Enums scoped to this method
+          ],
+          "requestHeaders": [
+            {
+              "name": "X-Idempotency-Key",
+              "description": "A unique key for idempotent requests"
+            }
+          ],
+          "requestFields": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": "The user's full name",
+              "validation": {
+                "minLength": 2,
+                "maxLength": 100
+              },
+              "required": true
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "description": "The user's email address",
+              "validation": {
+                "email": "You must provide a valid email"
+              },
+              "required": true
+            },
+            {
+              "name": "password",
+              "type": "string",
+              "description": "The user's password",
+              "validation": {
+                "minLength": 8
+              },
+              "required": true
+            }
+          ],
+          "responseHeaders": [
+            {
+              "name": "Location",
+              "description": "The URL of the newly created resource"
+            }
+          ],
+          "responseFields": [
+            {
+              "name": "user",
+              "type": "User",
+              "description": "The newly created user"
+            },
+          ],
           "errors": [
-            // Errors specific to this method
+            {
+              "name": "EmailAlreadyExists",
+              "description": "The provided email address is already in use",
+              "httpCode": 409
+            },
           ],
           "middleware": [
             // Middleware components for this method
           ],
-          "handler": {
-            // Method handler logic
-          }
         },
         {
           "name": "GetUser",
@@ -60,9 +134,6 @@ This is a full example to show all the possible fields that can be used in a spe
           "middleware": [
             // Middleware components for this method
           ],
-          "handler": {
-            // Method handler logic
-          }
         }
       ]
     },
@@ -140,7 +211,7 @@ Errors can be defined at three levels: globally, within a service, or within a s
         "headers": [
             {
                 "name": "Set-Cookie",
-                "value": "cookieName=authorization; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Path=/; HttpOnly"
+                "description": "this header will unset the authentication cookie"
             }
         ],
     },
@@ -160,7 +231,7 @@ We define errors with the following properties:
 - `httpCode`: The HTTP status code associated with the error.
 - `headers` (optional): An array of headers that can be included in the error response, each with the following properties:
     - `name`: The name of the header.
-    - `value` : The value of the header.
+    - `description` : The description of the header.
 - `messageType` (optional): The name of a message type that represents the error payload or additional error details.
 
 ### Message field
@@ -422,8 +493,6 @@ Depending on the type of field, the following validations are available.
 | `json` | valid json<br>(no value) | |
 | `JWT` | valid [JWT](https://jwt.io/) (Json Web Token)<br>(no value) | |
 | `lenghExact` | has an exact lenght<br> value: `int` | |
-| `lenghMax` | has a max lenght<br> value: `int` | |
-| `lenghMin` | has a min lenght<br> value: `int` | |
 | `lettersAndNumbersOnly` | contains only letters and numbers ; equivalent to a-zA-Z0-9<br>(no value) | `acceptSpaces`: boolean (default false) |
 | `lettersOnly` | contains only letters ; equivalent to a-zA-Z<br>(no value) | `acceptSpaces`: boolean (default false) |
 | `locale` | is a locale (eg: `en-GB`, `fr-FR` ), [ISO 639 Set 1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) - [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) <br>(no value) | `acceptedLocales`: array of locales |
@@ -431,7 +500,9 @@ Depending on the type of field, the following validations are available.
 | `macAddress` | valid [MAC address](https://en.wikipedia.org/wiki/MAC_address)<br>(no value) | |
 | `magnetURI` | valid [Magnet URI](https://en.wikipedia.org/wiki/Magnet_URI_scheme)<br>(no value) | |
 | `mailtoURI` | valid [Mailto URI](https://en.wikipedia.org/wiki/Mailto)<br>(no value) | |
+| `maxLength` | has a max lenght<br> value: `int` | |
 | `mimeType` | valid [MIME Type URI](https://en.wikipedia.org/wiki/Media_type)<br>(no value) | |
+| `minLength` | has a min lenght<br> value: `int` | |
 | `mobilePhone` | valid phone number<br>(no value) | `acceptedLocales`: array of locales |
 | `mongoId` | valid [Mongo ObjectId](https://www.mongodb.com/docs/manual/reference/method/ObjectId/)<br>(no value) | |
 | `numbersOnly` | contains only numbers ; equivalent to 0-9<br>(no value) | `acceptSpaces`: boolean (default false)<br>`acceptSign`: boolean (default false) |
@@ -474,3 +545,89 @@ Depending on the type of field, the following validations are available.
 | `minItems` | minimum amount of items in the collection <br>value: `int` |
 | `maxItems` | maximum amount of items in the collection <br>value: `int` |
 | `unique` | specify is the items in the collection must be unique <br>value: `boolean`<br>default: `false` |
+
+### Requests message types
+
+Request message types define the structure of the data that needs to be sent from the client to the server when invoking an RPC method. Here's how we can represent them in the specification:
+
+```json title="Request message type example"
+{
+  "name": "CreateUserRequest",
+  "description": "Request for creating a new user",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The user's full name",
+      "validation": {
+        "minLength": 2,
+        "maxLength": 100
+      },
+      "required": true
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "The user's email address",
+      "validation": {
+        "email": {
+            "message": "You must enter a valid email"
+        }
+      },
+      "required": true
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "description": "The user's password",
+      "validation": {
+        "minLength": 8
+      },
+      "required": true
+    }
+  ]
+}
+```
+
+In this example, the CreateUserRequest message type defines the structure of the data that needs to be sent when creating a new user. It includes fields for name, email, and password, each with its own validation rules and descriptions.
+
+### Middleware
+
+```json title="middlewares example"
+"middleware": [
+  {
+    "name": "AuthenticationMiddleware",
+    "description": "Middleware for authenticating the request",
+    "implementation": "./middleware/authenticating.rs",
+    "order": "before"
+  },
+  {
+    "name": "LoggingMiddleware",
+    "description": "Middleware for logging the request and response",
+    "implementation": "./middleware/logging.rs",
+    "order": "before",
+    "options": {
+      "logLevel": "info"
+    }
+  },
+  {
+    "name": "CacheMiddleware",
+    "description": "Middleware for caching the response",
+    "implementation": "./middleware/caching.rs",
+    "order": "after",
+    "options": {
+      "cacheExpiration": 3600
+    }
+  }
+],
+```
+
+Each middleware component object in the array has the following properties:
+
+- `name`: The unique name of the middleware component.
+- `description` (optional): A description of the middleware component's purpose.
+- `implementation`: contains a file path (e.g., ./middleware/authentication.rs)
+- `order`: A string value indicating whether the middleware should be executed `before` or `after` the main method handler logic.
+- `options` (optional): An object containing configuration options or settings specific to the middleware component.
+
+During the code generation process, Athena parses the middleware array and identify the middleware components with custom implementations. For each custom middleware component, Athena generates a placeholder or an integration point within the generated code, allowing the developers to inject their custom implementation.
