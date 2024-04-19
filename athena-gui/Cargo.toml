@@ -1,16 +1,17 @@
 [package]
+description = "My awesome Yew app."
 edition = "2021"
 name = "athena-gui"
+readme = "./README.md"
 version = "0.1.0"
 
 [dependencies]
-athena-core = {path = "../athena-core"}
 log = "0.4"
-reqwest = {version = "0.12.3", features = ["json"]}
+reqwest = {version = "0.11", features = ["json"]}
 serde = "1"
 wasm-bindgen = "0.2"
 wasm-logger = "0.2"
-yew = {git = "https://github.com/yewstack/yew/", features = ["csr"]}
+yew = {version = "0.21", features = ["csr"]}
 yew-hooks = "0.3"
 yew-router = "0.18"
 

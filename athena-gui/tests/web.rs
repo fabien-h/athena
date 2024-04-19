@@ -4,7 +4,7 @@ use yew::platform::time::sleep;
 
 wasm_bindgen_test_configure!(run_in_browser);
 
-use yew_app::app::App;
+use athena_gui::app::App;
 
 #[wasm_bindgen_test]
 async fn app_has_a_home_page() {
