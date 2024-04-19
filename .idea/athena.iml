@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/athena-cli/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/athena-core/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/athena-gui/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/athena-gui/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
