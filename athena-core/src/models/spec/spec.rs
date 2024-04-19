@@ -1,6 +1,9 @@
 use serde::{Deserialize, Serialize};
 
-use super::validations::{number_field::NumericField, string_field::StringField};
+use super::validations::{
+    bytes_field::BytesField, date_field::DateField, enum_field::EnumField,
+    number_field::NumericField, string_field::StringField,
+};
 use crate::models::constants::http_codes::HttpErrorResponseStatusCode;
 
 /**
@@ -105,7 +108,7 @@ pub struct APISpecError {
 pub struct APISpecRequestField {
     pub name: String,
     #[serde(flatten)]
-    pub field_type: APISpecRequestFieldType,
+    pub field_type: APISpecFieldType,
     pub description: Option<String>,
     pub default: Option<serde_json::Value>,
     pub required: Option<bool>,
@@ -113,19 +116,18 @@ pub struct APISpecRequestField {
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(tag = "type")]
-pub enum APISpecRequestFieldType {
+pub enum APISpecFieldType {
     String(StringField),
     Bool(BoolField),
     Int32(NumericField),
     Int64(NumericField),
     Float64(NumericField),
     Double(NumericField),
-    // Bytes(BytesField),
-    // Date(DateField),
-    // DateTime(DateTimeField),
-    // Timestamp(TimestampField),
-    // Enum(EnumField),
-    // Message(MessageField),
+    Bytes(BytesField),
+    Date(DateField),
+    DateTime(DateField),
+    Timestamp(DateField),
+    Enum(EnumField),
     // Array(ArrayField),
     // Map(MapField),
 }

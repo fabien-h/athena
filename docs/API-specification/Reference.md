@@ -258,14 +258,14 @@ We define errors with the following properties:
 
     - Any enum defined within the specification can be used as a field type.
 
-4. Message Types
-
-    - Any message type defined within the specification can be used as a field type for nested structures.
-
-5. Collection Types
+4. Collection Types
 
     - `array<Type>` (an array of the specified type)
     - `map<KeyType, ValueType>` (a map with the specified key and value types)
+
+5. Nodes
+
+  - `node` (parent in a nested structure)
 
 #### Syntax for Defining Fields
 
@@ -312,12 +312,15 @@ We define errors with the following properties:
 }
 ```
 
-*Message Types (Nested Structures)*
+*Node types (Nested Structures)*
 
 ```json title=""
 {
   "name": "address",
-  "type": "Address"
+  "type": "node",
+  "children": {
+    "key": // subfield
+  }
 }
 ```
 
