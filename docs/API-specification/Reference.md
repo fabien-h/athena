@@ -471,8 +471,8 @@ Depending on the type of field, the following validations are available.
 | `hash` | valid hash<br>value: the algorithm; one of [`crc32`, `crc32b`, `md4`, `md5`, `ripemd128`, `ripemd160`, `sha1`, `sha256`, `sha384`, `sha512`, `tiger128`, `tiger160`, `tiger192`] | |
 | `hexadecimal` | hexadecimal number<br>(no value) | |
 | `hsl` | HSL (hue, saturation, lightness, optional alpha) color based on CSS Colors Level 4 specification<br>(no value) | |
-| `IBAN` | valid IBAN (International Bank Account Number)<br>(no value) | `acceptedCountries`(optional): array of country codes |
-| `idCardNumber` | valid id card number<br>(no value) | `countries`: array of country code matching [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
+| `IBAN` | valid IBAN (International Bank Account Number)<br>(no value) | `acceptedCountries`: array of country code matching [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
+| `idCardNumber` | valid id card number<br>(no value) | `acceptedCountries`: array of country code matching [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
 | `IMEI` | IMEI number, `###############` or `##-######-######-#` | `allowHyphens` (optional): boolean, default: `true` |
 | `includes` | must include the value<br>value: `string` | `ignoreCase`(optional): boolean |
 | `IP` | valid [IP adress](https://www.ibm.com/docs/en/ts3500-tape-library?topic=functionality-ipv4-ipv6-address-formats), v4 or v6<br>(no value) | |
