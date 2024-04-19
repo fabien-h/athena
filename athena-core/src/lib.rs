@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 pub mod generator;
 pub mod models;
 pub mod parser;
+pub mod utils;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Specification {
