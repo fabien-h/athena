@@ -5,10 +5,21 @@ use tokio::net::TcpListener;
 
 #[tokio::main]
 pub async fn serve() -> () {
-    let app: Router = Router::new().route("/", get(|| async { "Hello, World!" }));
+    let app: Router = Router::new()
+        .route("/get-spec", get(get_json))
+        .route("/create-spec", get(get_json))
+        .route("/validate-spec", get(get_json));
 
     let listener: TcpListener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
     let address: SocketAddr = listener.local_addr().unwrap();
     println!("Athena ready on : {}", address);
     axum::serve(listener, app).await.unwrap();
+}
+
+async fn get_json() -> String {
+    todo!();
+}
+
+async fn create_json() -> String {
+    todo!();
 }

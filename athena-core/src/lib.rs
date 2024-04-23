@@ -1,3 +1,4 @@
+pub mod files_management;
 pub mod generator;
 pub mod models;
 pub mod parser;
