@@ -6,7 +6,7 @@ use crate::models::constants::{country_codes::CountryCode, hash_algorithms::Hash
 /**
  * Field type
  */
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct StringField {
     validations: Option<HashMap<String, StringValidationsRules>>,
 }
@@ -14,7 +14,7 @@ pub struct StringField {
 /**
  * Validations rules
  */
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 #[serde(untagged)]
 pub enum StringValidationsRules {
     #[serde(rename = "ascii")]
@@ -151,62 +151,62 @@ pub enum StringValidationsRules {
     WebColor(SimpleStringValidation),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct SimpleStringValidation {
     pub message: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct SimpleStringValidationWithAcceptedCountries {
     pub message: Option<String>,
     pub accepted_countries: Option<Vec<CountryCode>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct SimpleStringValidationWithLocales {
     pub message: Option<String>,
     pub accepted_countries: Option<Vec<String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct EnumStringValidation {
     pub value: Vec<String>,
     pub message: Option<String>,
     pub case_sensitive: Option<bool>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct EqualStringValidation {
     pub value: Vec<String>,
     pub message: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct HashStringValidation {
     pub value: Vec<HashAlgorithms>,
     pub message: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct IMEIStringValidation {
     pub message: Option<String>,
     pub allow_hyphen: Option<bool>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct IncludesStringValidation {
     pub value: String,
     pub message: Option<String>,
     pub case_sensitive: Option<bool>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct LengthStringValidation {
     pub value: usize,
     pub message: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct StringContentValidation {
     pub message: Option<String>,
     pub accept_spaces: Option<bool>,

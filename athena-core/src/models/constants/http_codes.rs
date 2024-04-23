@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub enum HttpResponseStatusCode {
     Informational(Informational),
     Successful(Successful),
@@ -9,13 +9,25 @@ pub enum HttpResponseStatusCode {
     ServerError(ServerError),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+impl Default for HttpResponseStatusCode {
+    fn default() -> Self {
+        HttpResponseStatusCode::Successful(Successful::Ok)
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub enum HttpErrorResponseStatusCode {
     ClientError(ClientError),
     ServerError(ServerError),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+impl Default for HttpErrorResponseStatusCode {
+    fn default() -> Self {
+        HttpErrorResponseStatusCode::ServerError(ServerError::InternalServerError)
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub enum Informational {
     Continue = 100,
     SwitchingProtocols = 101,
@@ -23,7 +35,7 @@ pub enum Informational {
     EarlyHints = 103,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub enum Successful {
     Ok = 200,
     Created = 201,
@@ -37,7 +49,7 @@ pub enum Successful {
     DeltaImUsed = 226,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub enum Redirection {
     MultipleChoices = 300,
     MovedPermanently = 301,
@@ -50,7 +62,7 @@ pub enum Redirection {
     PermanentRedirect = 308,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub enum ClientError {
     BadRequest = 400,
     Unauthorized = 401,
@@ -83,7 +95,7 @@ pub enum ClientError {
     UnavailableForLegalReasons = 451,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub enum ServerError {
     InternalServerError = 500,
     NotImplemented = 501,

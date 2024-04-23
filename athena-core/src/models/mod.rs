@@ -1,8 +1,8 @@
-mod constants;
-mod error;
-mod method;
-mod service;
-mod spec;
+pub mod constants;
+pub mod error;
+pub mod method;
+pub mod service;
+pub mod spec;
 
 // pub use error::Error;
 // pub use method::Method;

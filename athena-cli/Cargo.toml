@@ -5,3 +5,4 @@ version = "0.1.0"
 
 [dependencies]
 athena-core = {path = "../athena-core"}
+clap = {version = "4.5.4", features = ["derive"]}

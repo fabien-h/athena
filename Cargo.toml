@@ -4,6 +4,7 @@ members = [
   "athena-cli",
   "athena-gui",
 ]
+resolver = "2"
 
 [workspace.dependencies]
 serde = {version = "1.0.198", features = ["derive"]}

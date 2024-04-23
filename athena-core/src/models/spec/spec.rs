@@ -13,7 +13,7 @@ use crate::models::constants::http_codes::HttpErrorResponseStatusCode;
 /**
  * This is the root structure of the API specification.
  */
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default)]
 pub struct APISpec {
     pub name: String,
     pub version: String,
@@ -22,7 +22,7 @@ pub struct APISpec {
     pub services: Vec<APISpecService>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct APISpecGlobal {
     pub enums: Vec<APISpecEnum>,
     pub errors: Vec<APISpecError>,
@@ -34,7 +34,7 @@ pub struct APISpecGlobal {
  * This structure represents a service in the API specification.
  * Services exists a the root of the API specification and contain methods.
  */
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct APISpecService {
     pub name: String,
     pub description: String,
@@ -49,7 +49,7 @@ pub struct APISpecService {
  * This structure represents a method in the API specification.
  * They exist within services and contain request fields.
  */
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct APISpecMethod {
     pub name: String,
     pub description: String,
@@ -63,7 +63,7 @@ pub struct APISpecMethod {
  * This structure represents a header in the API specification.
  * They can exist globally, in services and in methods.
  */
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct APISpecHeader {
     pub name: String,
     pub description: String,
@@ -73,14 +73,14 @@ pub struct APISpecHeader {
  * This structure represents an enum in the API specification.
  * Enums can exist globally, in services and in methods.
  */
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct APISpecEnum {
     pub name: String,
     pub description: String,
     pub values: Vec<APISpecEnumValue>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct APISpecEnumValue {
     pub name: String,
     pub value: usize,
@@ -91,7 +91,7 @@ pub struct APISpecEnumValue {
  * This structure represents an error in the API specification.
  * Errors can exist globally, in services and in methods.
  */
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct APISpecError {
     pub name: String,
     pub description: String,
@@ -104,7 +104,7 @@ pub struct APISpecError {
  * This structure represents a request/response field in the API specification.
  * Fields can exist only in methods.
  */
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct APISpecRequestField {
     pub name: String,
     #[serde(flatten)]
@@ -114,7 +114,13 @@ pub struct APISpecRequestField {
     pub required: Option<bool>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+impl Default for APISpecFieldType {
+    fn default() -> Self {
+        APISpecFieldType::String(Default::default())
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 #[serde(tag = "type")]
 pub enum APISpecFieldType {
     String(StringField),
@@ -132,5 +138,5 @@ pub enum APISpecFieldType {
     // Map(MapField),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct BoolField;
