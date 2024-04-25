@@ -7,16 +7,16 @@ use tokio::fs::File;
 use tokio::io::AsyncWriteExt;
 
 pub async fn write_spec(
-    path: Option<&str>,
+    path: Option<impl Into<String>>,
     spec: &APISpec,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let file_path: PathBuf = match path {
-        Some(p) => Path::new(p).to_path_buf(),
+        Some(p) => Path::new(&p.into()).to_path_buf(),
         None => env::current_dir()?.join(DEFAULT_SPEC_PATH),
     };
 
     if !file_path.exists() {
-        return create_spec(Some(&file_path.to_str().unwrap())).await;
+        return create_spec(Some(file_path.to_str().unwrap())).await;
     }
 
     let json: String = serde_json::to_string_pretty(spec)?;

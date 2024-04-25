@@ -6,14 +6,16 @@ use std::path::{Path, PathBuf};
 use tokio::io::AsyncReadExt;
 use tokio::{fs::File, io::BufReader};
 
-pub async fn read_spec(path: Option<&str>) -> Result<APISpec, Box<dyn std::error::Error>> {
+pub async fn read_spec(
+    path: Option<impl Into<String>>,
+) -> Result<APISpec, Box<dyn std::error::Error>> {
     let file_path: PathBuf = match path {
-        Some(p) => Path::new(p).to_path_buf(),
+        Some(p) => Path::new(&p.into()).to_path_buf(),
         None => env::current_dir()?.join(DEFAULT_SPEC_PATH),
     };
 
     if !file_path.exists() {
-        create_spec(Some(&file_path.to_str().unwrap())).await?;
+        create_spec(Some(file_path.to_str().unwrap())).await?;
     }
 
     let file: File = File::open(file_path).await?;

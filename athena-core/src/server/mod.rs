@@ -23,12 +23,6 @@ struct AppState {
 #[tokio::main]
 pub async fn serve(spec_path: Option<String>) -> () {
     tracing_subscriber::registry().init();
-    // .with(tracing_subscriber::filter::  ::new(
-    //     std::env::var("RUST_LOG")
-    //         .unwrap_or_else(|_| "example_tracing_axum=debug,tower_http=debug".into()),
-    // ))
-    // .with(tracing_subscriber::fmt::layer())
-    // .init();
 
     let app: Router = Router::new()
         .route("/get-spec", get(get_file))
