@@ -1,8 +1,9 @@
 use axum::{
+    response::Html,
     routing::{get, post},
     Router,
 };
-use std::{net::SocketAddr, sync::Arc};
+use std::{env, net::SocketAddr, sync::Arc};
 use tokio::net::TcpListener;
 use tracing_subscriber::util::SubscriberInitExt;
 
@@ -20,6 +21,7 @@ pub async fn serve(spec_path: Option<String>) -> () {
     tracing_subscriber::registry().init();
 
     let app: Router = Router::new()
+        .route("/", get(root_get))
         .route("/get-spec", get(get_file::get))
         .route("/create-spec", get(create_file::create))
         .route("/validate-spec", post(validate_file::validate))
@@ -30,4 +32,11 @@ pub async fn serve(spec_path: Option<String>) -> () {
     let address: SocketAddr = listener.local_addr().unwrap();
     println!("Athena ready on : {}", address);
     axum::serve(listener, app).await.unwrap();
+}
+
+async fn root_get() -> impl axum::response::IntoResponse {
+    let current_dir = env::current_dir().unwrap();
+    let file_path = current_dir.join("gui_build/index.html");
+    let markup = tokio::fs::read_to_string(file_path).await.unwrap();
+    Html(markup)
 }
