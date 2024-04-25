@@ -1,15 +1,19 @@
+use super::create_spec::create_spec;
+use super::DEFAULT_SPEC_PATH;
 use crate::models::spec::spec::APISpec;
-use std::path::Path;
+use std::env;
+use std::path::{Path, PathBuf};
 use tokio::io::AsyncReadExt;
 use tokio::{fs::File, io::BufReader};
 
-use super::create_spec;
-
-pub async fn read_spec(path: &str) -> Result<APISpec, Box<dyn std::error::Error>> {
-    let file_path: &Path = Path::new(path);
+pub async fn read_spec(path: Option<&str>) -> Result<APISpec, Box<dyn std::error::Error>> {
+    let file_path: PathBuf = match path {
+        Some(p) => Path::new(p).to_path_buf(),
+        None => env::current_dir()?.join(DEFAULT_SPEC_PATH),
+    };
 
     if !file_path.exists() {
-        create_spec::create_spec(&path).await?;
+        create_spec(Some(&file_path.to_str().unwrap())).await?;
     }
 
     let file: File = File::open(file_path).await?;

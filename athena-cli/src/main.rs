@@ -13,20 +13,24 @@ struct Args {
 
 #[derive(Subcommand, Debug, Clone)]
 enum Commands {
-    Validate { path: String },
-    Generate { path: String },
-    Serve { path: String },
+    Validate {
+        spec_path: String,
+    },
+    Generate {
+        spec_path: String,
+    },
+    Serve {
+        #[arg(short, long)]
+        spec_path: Option<String>,
+    },
 }
 
 fn main() {
     let args: Args = Args::parse();
 
     match args.cmd {
-        Commands::Validate { path } => println!("Validating {}", path),
-        Commands::Generate { path } => println!("Generating {}", path),
-        Commands::Serve { path } => {
-            serve();
-            println!("Serving {}", path);
-        }
+        Commands::Validate { spec_path } => println!("Validating {}", spec_path),
+        Commands::Generate { spec_path } => println!("Generating {}", spec_path),
+        Commands::Serve { spec_path } => serve(spec_path),
     }
 }

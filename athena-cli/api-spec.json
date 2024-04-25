@@ -1,0 +1,12 @@
+{
+  "name": "test",
+  "version": "icule",
+  "description": "",
+  "global": {
+    "enums": [],
+    "errors": [],
+    "request_headers": [],
+    "response_headers": []
+  },
+  "services": []
+}
