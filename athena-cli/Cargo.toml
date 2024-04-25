@@ -7,3 +7,4 @@ version = "0.1.0"
 athena-core = {path = "../athena-core"}
 clap = {version = "4.5.4", features = ["derive"]}
 tokio = {version = "1.37.0", features = ["full"]}
+tower-http = "0.5.2"

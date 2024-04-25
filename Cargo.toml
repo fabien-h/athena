@@ -2,7 +2,6 @@
 members = [
   "athena-core",
   "athena-cli",
-  "athena-gui",
 ]
 resolver = "2"
 

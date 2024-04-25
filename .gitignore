@@ -1,3 +1,6 @@
+# GUI builds
+/athena-cli/gui_build
+
 # Mac os
 .DS_Store
 
