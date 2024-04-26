@@ -1,8 +1,9 @@
 use serde::{Deserialize, Serialize};
 
 use super::validations::{
-    bytes_field::BytesField, date_field::DateField, enum_field::EnumField,
-    number_field::NumericField, string_field::StringField,
+    api_license::APILicence, api_version::APIVersion, bytes_field::BytesField,
+    date_field::DateField, enum_field::EnumField, number_field::NumericField,
+    string_field::StringField,
 };
 use crate::models::constants::http_codes::HttpErrorResponseStatusCode;
 
@@ -15,11 +16,17 @@ use crate::models::constants::http_codes::HttpErrorResponseStatusCode;
  */
 #[derive(Serialize, Deserialize, Debug, PartialEq, Default)]
 pub struct APISpec {
-    pub name: String,
-    pub version: String,
-    pub description: String,
+    pub infos: APIInfos,
     pub global: APISpecGlobal,
     pub services: Vec<APISpecService>,
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Default)]
+pub struct APIInfos {
+    pub name: String,
+    pub version: APIVersion,
+    pub description: String,
+    pub licence: APILicence,
 }
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]

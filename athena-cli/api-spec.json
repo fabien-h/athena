@@ -1,7 +1,13 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
+  "infos": {
+    "name": "",
+    "version": "0.1.0",
+    "description": "",
+    "licence": {
+      "name": "",
+      "url": ""
+    }
+  },
   "global": {
     "enums": [],
     "errors": [],

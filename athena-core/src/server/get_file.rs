@@ -10,7 +10,7 @@ pub async fn get(State(state): State<Arc<AppState>>) -> impl IntoResponse {
     match read_spec(spec_path).await {
         Ok(spec) => Ok(Json(spec)),
         Err(e) => {
-            tracing::error!("Failed to read spec file: {:?}", e);
+            println!("Failed to read spec file: {:?}", e);
             Err((
                 StatusCode::INTERNAL_SERVER_ERROR,
                 "Failed to read spec file".to_string(),
