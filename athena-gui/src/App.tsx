@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 //import reactLogo from './assets/react.svg'
 import './App.css'
 import { ConfigProvider } from 'antd';
+import { SideNav } from './components/SideNav';
 
 function App() {
   const [json, setJSON] = useState(null);
@@ -54,6 +55,7 @@ function App() {
     >
       {JSON.stringify(json || '[]')}
 
+      <SideNav />
     </ConfigProvider>
   )
 }
