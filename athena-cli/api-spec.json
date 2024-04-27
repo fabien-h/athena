@@ -1,11 +1,11 @@
 {
   "infos": {
-    "name": "",
+    "name": "My awesome API",
     "version": "0.1.0",
-    "description": "",
+    "description": "Description of the API",
     "licence": {
-      "name": "",
-      "url": ""
+      "name": "MIT",
+      "url": "https://spdx.org/licenses/MIT.html"
     }
   },
   "global": {
@@ -14,5 +14,24 @@
     "request_headers": [],
     "response_headers": []
   },
-  "services": []
+  "services": [
+    {
+      "name": "toto",
+      "description": "service description",
+      "enums": [],
+      "errors": [],
+      "request_headers": [],
+      "response_headers": [],
+      "methods": []
+    },
+    {
+      "name": "Mon petit service",
+      "description": "Ah qu'il est beau",
+      "enums": [],
+      "errors": [],
+      "request_headers": [],
+      "response_headers": [],
+      "methods": []
+    }
+  ]
 }

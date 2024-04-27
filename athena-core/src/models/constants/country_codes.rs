@@ -245,8 +245,7 @@ pub enum CountryCode {
     #[serde(rename = "KP")]
     KoreaDemocraticPeoplesRepublicOf,
     #[serde(rename = "KR")]
-    Korea,
-    RepublicOf,
+    KoreaRepublicOf,
     #[serde(rename = "KW")]
     Kuwait,
     #[serde(rename = "KY")]
@@ -368,8 +367,7 @@ pub enum CountryCode {
     #[serde(rename = "PR")]
     PuertoRico,
     #[serde(rename = "PS")]
-    Palestine,
-    StateOf,
+    PalestineStateOf,
     #[serde(rename = "PT")]
     Portugal,
     #[serde(rename = "PW")]

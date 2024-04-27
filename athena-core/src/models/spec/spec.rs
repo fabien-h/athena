@@ -1,11 +1,10 @@
-use serde::{Deserialize, Serialize};
-
 use super::validations::{
-    api_license::APILicence, api_version::APIVersion, bytes_field::BytesField,
-    date_field::DateField, enum_field::EnumField, number_field::NumericField,
-    string_field::StringField,
+    api_description::APIDescription, api_license::APILicence, api_name::APIName,
+    api_version::APIVersion, bytes_field::BytesField, date_field::DateField, enum_field::EnumField,
+    number_field::NumericField, string_field::StringField,
 };
 use crate::models::constants::http_codes::HttpErrorResponseStatusCode;
+use serde::{Deserialize, Serialize};
 
 /**
  * This module contains the data structures that represent the API specification.
@@ -23,9 +22,9 @@ pub struct APISpec {
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Default)]
 pub struct APIInfos {
-    pub name: String,
+    pub name: APIName,
     pub version: APIVersion,
-    pub description: String,
+    pub description: APIDescription,
     pub licence: APILicence,
 }
 

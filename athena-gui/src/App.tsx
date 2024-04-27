@@ -1,21 +1,16 @@
-import { useEffect, useState } from 'react'
-//import reactLogo from './assets/react.svg'
+import { useEffect } from 'react'
 import './App.css'
 import { ConfigProvider } from 'antd';
-import { SideNav } from './components/SideNav';
+import { APIInfos } from './components/APIInfos';
+import { AppLayout } from './components/AppLayout';
+import { loadSpec } from './datalayer/loadSpec';
+import { APIServices } from './components/APIServices';
+import { APIGlobals } from './components/APIGlobals';
 
 function App() {
-  const [json, setJSON] = useState(null);
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch('http://localhost:3000/get-spec');
-      const data = await response.json();
-
-      console.log(data);
-
-      setJSON(data);
-    })();
+    loadSpec();
   }, []);
 
 
@@ -53,9 +48,11 @@ function App() {
         }
       }}
     >
-      {JSON.stringify(json || '[]')}
-
-      <SideNav />
+      <AppLayout>
+        <APIInfos />
+        <APIServices />
+        <APIGlobals />
+      </AppLayout>
     </ConfigProvider>
   )
 }
