@@ -1,15 +1,18 @@
 import { useState } from "react";
-import type { APISpecService } from "../../../models/spec";
+import type { APISpecEnum } from "../../models/spec"
 import { Button, Divider, Drawer, Form, Input, Modal } from "antd";
 import { EditFilled } from "@ant-design/icons";
-import { deleteService, updateService } from "../../../datalayer/service";
+import { deleteEnum, updateEnum } from "../../datalayer/serviceEnums";
 
-export const APIServiceForm = (
+export const APIEnumForm = (
     {
-        service,
-        serviceIndex
+        apiEnum,
+        serviceIndex,
+        enumIndex,
     }: {
-        service: APISpecService, serviceIndex: number
+        apiEnum: APISpecEnum,
+        serviceIndex: number
+        enumIndex: number
     }
 ) => {
     const [open, setOpen] = useState(false);
@@ -29,24 +32,26 @@ export const APIServiceForm = (
         name: string;
         description: string;
     }) => {
-        updateService({
-            name: name,
-            description: description,
-            serviceIndex
-        });
+        updateEnum({
+            serviceIndex,
+            enumIndex,
+            name,
+            description,
+            values: apiEnum.values,
+        })
         onClose();
     };
 
     const showDeleteConfirm = () => {
         Modal.confirm({
-            title: `Delete ${service.name}`,
+            title: `Delete ${apiEnum.name}`,
             content: 'Are you sure?',
             okText: 'Yes, delete it',
             okType: 'danger',
             cancelText: 'No, cancel',
             centered: true,
             onOk() {
-                deleteService(serviceIndex)
+                deleteEnum({ serviceIndex, enumIndex })
             },
         });
     };
@@ -55,7 +60,7 @@ export const APIServiceForm = (
         <>
             <Button type="default" onClick={showDrawer} icon={<EditFilled />} />
             <Drawer
-                title="Service Configuration"
+                title="Enum Configuration"
                 width={300}
                 onClose={onClose}
                 open={open}
@@ -69,10 +74,10 @@ export const APIServiceForm = (
                     <Form.Item
                         name="name"
                         label="Service Name"
-                        rules={[{ required: true, message: 'Your Service needs a name' }]}
-                        initialValue={service.name}
+                        rules={[{ required: true, message: 'Your Enum needs a name' }]}
+                        initialValue={apiEnum.name}
                     >
-                        <Input placeholder="eg: Managing employees roles" />
+                        <Input placeholder="eg: country_codes" />
                     </Form.Item>
                     <Form.Item
                         name="description"
@@ -80,12 +85,12 @@ export const APIServiceForm = (
                         rules={[
                             {
                                 required: true,
-                                message: 'please enter url description',
+                                message: 'Your enum needs a description',
                             },
                         ]}
-                        initialValue={service.description}
+                        initialValue={apiEnum.description}
                     >
-                        <Input.TextArea rows={4} placeholder="eg: This API manages our products inventory." />
+                        <Input.TextArea rows={4} placeholder="eg: List of all country codes according to the ISO 3166." />
                     </Form.Item>
 
                     <Button type="primary" htmlType="submit" block>
@@ -96,9 +101,9 @@ export const APIServiceForm = (
                 <Divider />
 
                 <Button danger block onClick={showDeleteConfirm}>
-                    Delete Service
+                    Delete Enum
                 </Button>
             </Drawer>
         </>
     );
-};
+}

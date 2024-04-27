@@ -1,10 +1,10 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Divider, Empty, Flex, Typography } from "antd";
-import { addService } from "../../datalayer/addService";
 import Acta from "acta";
 import { ActaKeys } from "../../features/actaKeys";
 import type { APISpecService } from "../../models/spec";
 import { APIService } from "./APIService/APIService";
+import { addService } from "../../datalayer/service";
 
 export const APIServices = () => {
     const services = Acta.useActaState(ActaKeys.SPEC_SERVICES) as Array<APISpecService>;
@@ -22,14 +22,14 @@ export const APIServices = () => {
                 <Button size="small" onClick={addService} icon={<PlusOutlined />}>Add a service</Button>
             </>} />
         }
-        <div style={{ paddingLeft: 50 }}>
+        <Flex style={{ paddingLeft: 50 }} vertical gap="small">
             {
-                (services || []).map((service, index) => <APIService
-                    key={index.toString()}
-                    index={index}
+                (services || []).map((service, serviceIndex) => <APIService
+                    key={serviceIndex.toString()}
+                    serviceIndex={serviceIndex}
                     service={service}
                 />)
             }
-        </div>
+        </Flex>
     </>;
 }

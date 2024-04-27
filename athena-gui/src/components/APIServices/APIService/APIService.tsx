@@ -4,15 +4,14 @@ import { APIServiceForm } from "./APIServiceForm"
 import { APIMethods } from "../../APIMethods"
 import { APIErrors } from "../../APIErrors"
 import { APIEnums } from "../../APIEnums"
-import { APIHeaders } from "../../APIHeaders"
 
 export const APIService = (
     {
         service,
-        index,
+        serviceIndex,
     }: {
         service: APISpecService,
-        index: number
+        serviceIndex: number
     }
 ) => {
 
@@ -20,15 +19,14 @@ export const APIService = (
         <Divider />
         <Flex justify="space-between">
             <Typography.Title level={3}>{service.name}</Typography.Title>
-            <APIServiceForm service={service} index={index} />
+            <APIServiceForm service={service} serviceIndex={serviceIndex} />
         </Flex>
         <Typography.Paragraph>{service.description}</Typography.Paragraph>
 
         <div style={{ paddingLeft: 25 }}>
-            <APIMethods />
-            <APIEnums />
-            <APIErrors />
-            <APIHeaders />
+            <APIMethods service={service} serviceIndex={serviceIndex} />
+            <APIEnums service={service} serviceIndex={serviceIndex} />
+            <APIErrors service={service} serviceIndex={serviceIndex} />
         </div>
     </>
 }

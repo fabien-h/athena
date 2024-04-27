@@ -16,18 +16,31 @@
   },
   "services": [
     {
-      "name": "toto",
-      "description": "service description",
-      "enums": [],
-      "errors": [],
-      "request_headers": [],
-      "response_headers": [],
-      "methods": []
-    },
-    {
-      "name": "Mon petit service",
-      "description": "Ah qu'il est beau",
-      "enums": [],
+      "name": "Mon service",
+      "description": "Avec une super description de ce qu'il fait. Youpi.",
+      "enums": [
+        {
+          "name": "new_enum_toto",
+          "description": "enum description",
+          "values": [
+            {
+              "name": "first_value",
+              "value": 2000,
+              "description": "first description for the value"
+            },
+            {
+              "name": "value_name",
+              "value": 1,
+              "description": "A very long description. A very long description. A very long description. A very long description. A very long description. A very long description. A very long description. A very long description. "
+            },
+            {
+              "name": "value_name",
+              "value": 2,
+              "description": "value description"
+            }
+          ]
+        }
+      ],
       "errors": [],
       "request_headers": [],
       "response_headers": [],
