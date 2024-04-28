@@ -62,8 +62,9 @@ pub struct APISpecMethod {
     pub enums: Vec<APISpecEnum>,
     pub errors: Vec<APISpecError>,
     pub request_headers: Vec<APISpecHeader>,
+    pub request_fields: Vec<APISpecMethodField>,
     pub response_headers: Vec<APISpecHeader>,
-    pub request_fields: Vec<APISpecRequestField>,
+    pub response_fields: Vec<APISpecMethodField>,
 }
 /**
  * This structure represents a header in the API specification.
@@ -111,7 +112,7 @@ pub struct APISpecError {
  * Fields can exist only in methods.
  */
 #[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
-pub struct APISpecRequestField {
+pub struct APISpecMethodField {
     pub name: String,
     #[serde(flatten)]
     pub field_type: APISpecFieldType,
@@ -129,17 +130,17 @@ impl Default for APISpecFieldType {
 #[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 #[serde(tag = "type")]
 pub enum APISpecFieldType {
-    String(StringField),
     Bool(BoolField),
-    Int32(NumericField),
-    Int64(NumericField),
-    Float64(NumericField),
-    Double(NumericField),
     Bytes(BytesField),
     Date(DateField),
     DateTime(DateField),
-    Timestamp(DateField),
+    Double(NumericField),
     Enum(EnumField),
+    Float64(NumericField),
+    Int32(NumericField),
+    Int64(NumericField),
+    String(StringField),
+    Timestamp(DateField),
     // Array(ArrayField),
     // Map(MapField),
 }

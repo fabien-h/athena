@@ -44,7 +44,17 @@
       "errors": [],
       "request_headers": [],
       "response_headers": [],
-      "methods": []
+      "methods": [
+        {
+          "name": "new_method",
+          "description": "method description",
+          "enums": [],
+          "errors": [],
+          "request_headers": [],
+          "response_headers": [],
+          "request_fields": []
+        }
+      ]
     }
   ]
 }

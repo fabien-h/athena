@@ -115,27 +115,30 @@ export type APISpecError = z.infer<typeof APISpecError>;
 export const BoolField = z.object({});
 export type BoolField = z.infer<typeof BoolField>;
 
-export const APISpecFieldType = z.discriminatedUnion('type', [
-    z.object({ type: z.literal('Bool'), value: BoolField }),
-    z.object({ type: z.literal('Int32'), value: NumericField }),
-    z.object({ type: z.literal('Int64'), value: NumericField }),
-    z.object({ type: z.literal('Float64'), value: NumericField }),
-    z.object({ type: z.literal('Double'), value: NumericField }),
-    z.object({ type: z.literal('Bytes'), value: BytesField }),
-    z.object({ type: z.literal('Date'), value: DateField }),
-    z.object({ type: z.literal('DateTime'), value: DateField }),
-    z.object({ type: z.literal('Timestamp'), value: DateField }),
-    z.object({ type: z.literal('Enum'), value: EnumField }),
-]);
+export const APISpecFieldType = {
+    Bool: 'Bool',
+    Bytes: 'Bytes',
+    Date: 'Date',
+    DateTime: 'DateTime',
+    Double: 'Double',
+    Enum: 'Enum',
+    Float64: 'Float64',
+    Int32: 'Int32',
+    Int64: 'Int64',
+    String: 'String',
+    Timestamp: 'Timestamp',
+} as const;
+export const APISpecFieldTypeEnum = z.nativeEnum(APISpecFieldType);
+export type APISpecFieldTypeEnum = z.infer<typeof APISpecFieldTypeEnum>;
 
-export const APISpecRequestField = z.object({
+export const APISpecMethodField = z.object({
     name: z.string(),
-    field_type: APISpecFieldType,
+    field_type: APISpecFieldTypeEnum,
     description: z.string().optional(),
     default: z.any().optional(),
     required: z.boolean().optional(),
 });
-export type APISpecRequestField = z.infer<typeof APISpecRequestField>;
+export type APISpecMethodField = z.infer<typeof APISpecMethodField>;
 
 export const APISpecEnumValue = z.object({
     name: z.string(),
@@ -157,8 +160,9 @@ export const APISpecMethod = z.object({
     enums: z.array(APISpecEnum),
     errors: z.array(APISpecError),
     request_headers: z.array(APISpecHeader),
+    request_fields: z.array(APISpecMethodField),
     response_headers: z.array(APISpecHeader),
-    request_fields: z.array(APISpecRequestField),
+    response_fields: z.array(APISpecMethodField),
 });
 export type APISpecMethod = z.infer<typeof APISpecMethod>;
 
