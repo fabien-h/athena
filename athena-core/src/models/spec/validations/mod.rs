@@ -2,6 +2,7 @@ pub mod api_description;
 pub mod api_license;
 pub mod api_name;
 pub mod api_version;
+pub mod bool_field;
 pub mod bytes_field;
 pub mod collection_field;
 pub mod date_field;

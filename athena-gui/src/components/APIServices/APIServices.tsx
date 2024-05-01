@@ -15,6 +15,7 @@ export const APIServices = () => {
             <Typography.Title level={2}>Services</Typography.Title>
             <Button size="small" onClick={addService} icon={<PlusOutlined />}>Add a service</Button>
         </Flex>
+
         {
             (services || []).length === 0 &&
             <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={<>
@@ -22,6 +23,7 @@ export const APIServices = () => {
                 <Button size="small" onClick={addService} icon={<PlusOutlined />}>Add a service</Button>
             </>} />
         }
+
         <Flex style={{ paddingLeft: 50 }} vertical gap="small">
             {
                 (services || []).map((service, serviceIndex) => <APIService

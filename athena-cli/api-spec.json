@@ -24,19 +24,16 @@
           "description": "enum description",
           "values": [
             {
-              "name": "first_value",
-              "value": 2000,
-              "description": "first description for the value"
+              "value": "first_value",
+              "description": "first description for the valuehghg"
             },
             {
-              "name": "value_name",
-              "value": 1,
+              "value": "second_value",
               "description": "A very long description. A very long description. A very long description. A very long description. A very long description. A very long description. A very long description. A very long description. "
             },
             {
-              "name": "value_name",
-              "value": 2,
-              "description": "value description"
+              "value": "third_value",
+              "description": "value descdsqdqription"
             }
           ]
         }
@@ -51,8 +48,52 @@
           "enums": [],
           "errors": [],
           "request_headers": [],
+          "request_fields": [
+            {
+              "name": "bla",
+              "field_type": "String",
+              "validations": {},
+              "description": "youpi",
+              "default": "",
+              "required": true
+            },
+            {
+              "name": "my_enum",
+              "field_type": "Enum",
+              "validations": {
+                "enum_name": "new_enum_toto",
+                "enum_localization": "service"
+              },
+              "description": "blabla",
+              "default": "first_value",
+              "required": false
+            },
+            {
+              "name": "my_bool",
+              "field_type": "Bool",
+              "description": "toto",
+              "default": "true",
+              "required": true
+            },
+            {
+              "name": "my_number",
+              "field_type": "Int32",
+              "validations": null,
+              "description": "tutu",
+              "default": "",
+              "required": false
+            },
+            {
+              "name": "my_date",
+              "field_type": "Date",
+              "validations": null,
+              "description": "tata",
+              "default": "",
+              "required": false
+            }
+          ],
           "response_headers": [],
-          "request_fields": []
+          "response_fields": []
         }
       ]
     }

@@ -27,7 +27,7 @@ export const APIMethod = ({
                     apiMethod={apiMethod}
                     serviceIndex={serviceIndex}
                     methodIndex={methodIndex}
-                    type="request"
+                    method_type="request"
                 />
 
                 <br />
@@ -36,7 +36,7 @@ export const APIMethod = ({
                     apiMethod={apiMethod}
                     serviceIndex={serviceIndex}
                     methodIndex={methodIndex}
-                    type="response"
+                    method_type="response"
                 />
             </Card>
         </>

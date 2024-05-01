@@ -1,7 +1,7 @@
 use super::validations::{
     api_description::APIDescription, api_license::APILicence, api_name::APIName,
-    api_version::APIVersion, bytes_field::BytesField, date_field::DateField, enum_field::EnumField,
-    number_field::NumericField, string_field::StringField,
+    api_version::APIVersion, bool_field::BoolField, bytes_field::BytesField, date_field::DateField,
+    enum_field::EnumField, number_field::NumericField, string_field::StringField,
 };
 use crate::models::constants::http_codes::HttpErrorResponseStatusCode;
 use serde::{Deserialize, Serialize};
@@ -89,8 +89,7 @@ pub struct APISpecEnum {
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
 pub struct APISpecEnumValue {
-    pub name: String,
-    pub value: usize,
+    pub value: String,
     pub description: String,
 }
 
@@ -128,7 +127,7 @@ impl Default for APISpecFieldType {
 }
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
-#[serde(tag = "type")]
+#[serde(tag = "field_type")]
 pub enum APISpecFieldType {
     Bool(BoolField),
     Bytes(BytesField),
@@ -144,6 +143,3 @@ pub enum APISpecFieldType {
     // Array(ArrayField),
     // Map(MapField),
 }
-
-#[derive(Serialize, Deserialize, Debug, PartialEq, Default, Clone)]
-pub struct BoolField;

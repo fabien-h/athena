@@ -14,7 +14,6 @@ export const APIService = (
         serviceIndex: number
     }
 ) => {
-
     return <>
         <Divider />
         <Flex justify="space-between">

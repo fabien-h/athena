@@ -1,5 +1,11 @@
 import { z } from "zod";
 import { HttpErrorResponseStatusCode } from "./constants/http_codes";
+import { NumberField } from "./methodFields/number_field";
+import { DateField } from "./methodFields/date_field";
+import { BytesField } from "./methodFields/bytes_field";
+import { EnumField } from "./methodFields/enum_field";
+import { StringField } from "./methodFields/string_field";
+import { BoolField } from "./methodFields/bool_field";
 
 export const APIVersion = z.string().refine((val) => {
     const parts = val.split('.');
@@ -21,82 +27,6 @@ export const APIInfos = z.object({
 });
 export type APIInfos = z.infer<typeof APIInfos>;
 
-export const ByteValidation = z.object({
-    value: z.number().int(),
-    message: z.string().optional(),
-});
-export type ByteValidation = z.infer<typeof ByteValidation>;
-
-export const BytePatternValidation = z.object({
-    pattern: z.string(),
-    message: z.string().optional(),
-});
-export type BytePatternValidation = z.infer<typeof BytePatternValidation>;
-
-export const ByteValidationsRules = z.discriminatedUnion('type', [
-    z.object({ type: z.literal('minlength'), value: ByteValidation }),
-    z.object({ type: z.literal('maxlength'), value: ByteValidation }),
-    z.object({ type: z.literal('exactlength'), value: ByteValidation }),
-    z.object({ type: z.literal('pattern'), value: BytePatternValidation }),
-]);
-export type ByteValidationsRules = z.infer<typeof ByteValidationsRules>;
-
-export const BytesField = z.object({
-    validations: z.record(ByteValidationsRules).optional(),
-});
-export type BytesField = z.infer<typeof BytesField>;
-
-export const DateValidation = z.object({
-    value: z.number().int(),
-    message: z.string().optional(),
-});
-export type DateValidation = z.infer<typeof DateValidation>;
-
-export const DateValidationsRules = z.discriminatedUnion('type', [
-    z.object({ type: z.literal('gt'), value: DateValidation }),
-    z.object({ type: z.literal('gte'), value: DateValidation }),
-    z.object({ type: z.literal('lt'), value: DateValidation }),
-    z.object({ type: z.literal('lte'), value: DateValidation }),
-]);
-export type DateValidationsRules = z.infer<typeof DateValidationsRules>;
-
-export const DateField = z.object({
-    validations: z.record(DateValidationsRules).optional(),
-});
-export type DateField = z.infer<typeof DateField>;
-
-export const EnumValidation = z.object({
-    value: z.array(z.string()),
-    message: z.string().optional(),
-});
-
-
-export const EnumValidationsRules = z.discriminatedUnion('type', [
-    z.object({ type: z.literal('matches'), value: EnumValidation }),
-]);
-
-export const EnumField = z.object({
-    validations: z.record(EnumValidationsRules).optional(),
-});
-
-export const NumberValidation = z.object({
-    value: z.number().int(),
-    message: z.string().optional(),
-});
-
-export const NumberValidationsRules = z.discriminatedUnion('type', [
-    z.object({ type: z.literal('gt'), value: NumberValidation }),
-    z.object({ type: z.literal('gte'), value: NumberValidation }),
-    z.object({ type: z.literal('lt'), value: NumberValidation }),
-    z.object({ type: z.literal('lte'), value: NumberValidation }),
-    z.object({ type: z.literal('multipleOf'), value: NumberValidation }),
-]);
-
-export const NumericField = z.object({
-    validations: z.record(NumberValidationsRules).optional(),
-});
-
-
 export const APISpecHeader = z.object({
     name: z.string(),
     description: z.string(),
@@ -112,37 +42,18 @@ export const APISpecError = z.object({
 });
 export type APISpecError = z.infer<typeof APISpecError>;
 
-export const BoolField = z.object({});
-export type BoolField = z.infer<typeof BoolField>;
-
-export const APISpecFieldType = {
-    Bool: 'Bool',
-    Bytes: 'Bytes',
-    Date: 'Date',
-    DateTime: 'DateTime',
-    Double: 'Double',
-    Enum: 'Enum',
-    Float64: 'Float64',
-    Int32: 'Int32',
-    Int64: 'Int64',
-    String: 'String',
-    Timestamp: 'Timestamp',
-} as const;
-export const APISpecFieldTypeEnum = z.nativeEnum(APISpecFieldType);
-export type APISpecFieldTypeEnum = z.infer<typeof APISpecFieldTypeEnum>;
-
-export const APISpecMethodField = z.object({
-    name: z.string(),
-    field_type: APISpecFieldTypeEnum,
-    description: z.string().optional(),
-    default: z.any().optional(),
-    required: z.boolean().optional(),
-});
+export const APISpecMethodField = z.union([
+    BoolField,
+    BytesField,
+    DateField,
+    EnumField,
+    NumberField,
+    StringField,
+]);
 export type APISpecMethodField = z.infer<typeof APISpecMethodField>;
 
 export const APISpecEnumValue = z.object({
-    name: z.string(),
-    value: z.number().int(),
+    value: z.string(),
     description: z.string(),
 });
 export type APISpecEnumValue = z.infer<typeof APISpecEnumValue>;
