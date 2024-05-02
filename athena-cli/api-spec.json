@@ -20,7 +20,7 @@
       "description": "Avec une super description de ce qu'il fait. Youpi.",
       "enums": [
         {
-          "name": "new_enum_toto",
+          "name": "mon_enum",
           "description": "enum description",
           "values": [
             {
@@ -36,6 +36,11 @@
               "description": "value descdsqdqription"
             }
           ]
+        },
+        {
+          "name": "new_enum",
+          "description": "enum description",
+          "values": []
         }
       ],
       "errors": [],
@@ -61,7 +66,7 @@
               "name": "my_enum",
               "field_type": "Enum",
               "validations": {
-                "enum_name": "new_enum_toto",
+                "enum_name": "mon_enum",
                 "enum_localization": "service"
               },
               "description": "blabla",
@@ -92,6 +97,16 @@
               "required": false
             }
           ],
+          "response_headers": [],
+          "response_fields": []
+        },
+        {
+          "name": "new_method",
+          "description": "method description",
+          "enums": [],
+          "errors": [],
+          "request_headers": [],
+          "request_fields": [],
           "response_headers": [],
           "response_fields": []
         }

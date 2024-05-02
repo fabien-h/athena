@@ -17,10 +17,6 @@ export const APIEnumForm = (
 ) => {
     const [open, setOpen] = useState(false);
 
-    const showDrawer = () => {
-        setOpen(true);
-    };
-
     const onClose = () => {
         setOpen(false);
     };
@@ -58,7 +54,7 @@ export const APIEnumForm = (
 
     return (
         <>
-            <Button type="default" onClick={showDrawer} icon={<EditFilled />} />
+            <Button size='small' type="default" onClick={() => setOpen(true)} icon={<EditFilled />} />
             <Drawer
                 title="Enum Configuration"
                 width={300}

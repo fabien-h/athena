@@ -7,6 +7,8 @@ export const APIGlobals = () => {
         <Flex justify="space-between" align="center">
             <Typography.Title level={2}>API Globals</Typography.Title>
             <Button size="small" icon={<PlusOutlined />}>Add a service</Button>
+
+
         </Flex>
     </>
 }

@@ -1,4 +1,4 @@
-import { Card, Flex, Typography } from "antd";
+import { Collapse, Flex, Typography } from "antd";
 import type { APISpecMethod } from "../../models/spec";
 import { APIMethodFields } from "./APIMethodFields";
 
@@ -13,32 +13,37 @@ export const APIMethod = ({
 }) => {
     return (
         <>
-            <Card
-                title={<Flex justify="space-between">
-                    {apiMethod.name}
-                    {/* <APIEnumForm apiEnum={apiEnum} serviceIndex={serviceIndex} enumIndex={enumIndex} /> */}
-                </Flex>}
-            >
-                <Typography.Paragraph>
-                    {apiMethod.description}
-                </Typography.Paragraph>
+            <Collapse
+                size="small"
+                items={[{
+                    key: '1',
+                    label: < Flex justify="space-between" >
+                        {apiMethod.name}
+                    </Flex >,
+                    children:
+                        <>
+                            <Typography.Paragraph>
+                                {apiMethod.description}
+                            </Typography.Paragraph >
 
-                <APIMethodFields
-                    apiMethod={apiMethod}
-                    serviceIndex={serviceIndex}
-                    methodIndex={methodIndex}
-                    method_type="request"
-                />
+                            <APIMethodFields
+                                apiMethod={apiMethod}
+                                serviceIndex={serviceIndex}
+                                methodIndex={methodIndex}
+                                method_type="request"
+                            />
 
-                <br />
+                            <br />
 
-                <APIMethodFields
-                    apiMethod={apiMethod}
-                    serviceIndex={serviceIndex}
-                    methodIndex={methodIndex}
-                    method_type="response"
-                />
-            </Card>
+                            <APIMethodFields
+                                apiMethod={apiMethod}
+                                serviceIndex={serviceIndex}
+                                methodIndex={methodIndex}
+                                method_type="response"
+                            />
+                        </>
+                }]}
+            />
         </>
     )
 }

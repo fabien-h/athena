@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Input, Modal, Table, type TableColumnsType, Typography } from "antd";
+import { Button, Collapse, Flex, Input, Modal, Table, type TableColumnsType, Typography } from "antd";
 import type { APISpecEnum, APISpecEnumValue } from "../../models/spec";
 import { APIEnumForm } from "./APIEnumForm";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
@@ -93,25 +93,31 @@ export const APIEnum = (
     };
 
     return (
-        <Card
-            title={<Flex justify="space-between" align="center">
-                {apiEnum.name}
-                <APIEnumForm apiEnum={apiEnum} serviceIndex={serviceIndex} enumIndex={enumIndex} />
-            </Flex>}
-        >
-            <Typography.Paragraph>
-                {apiEnum.description}
-            </Typography.Paragraph>
+        <Collapse
+            size="small"
+            items={[{
+                key: '1',
+                label: apiEnum.name,
+                children:
+                    <>
+                        <Flex justify="space-between" align="flex-start">
+                            <Typography.Paragraph>
+                                {apiEnum.description}
+                            </Typography.Paragraph>
+                            <APIEnumForm apiEnum={apiEnum} serviceIndex={serviceIndex} enumIndex={enumIndex} />
+                        </Flex>
 
-            <Table
-                columns={columns}
-                dataSource={data}
-                size="small"
-                pagination={false}
-                footer={() => <Flex justify="flex-end">
-                    <Button size="small" onClick={addValue} icon={<PlusOutlined />}>Add value</Button>
-                </Flex>}
-            />
-        </Card>
+                        <Table
+                            columns={columns}
+                            dataSource={data}
+                            size="small"
+                            pagination={false}
+                            footer={() => <Flex justify="flex-end">
+                                <Button size="small" onClick={addValue} icon={<PlusOutlined />}>Add value</Button>
+                            </Flex>}
+                        />
+                    </>
+            }]}
+        />
     )
 };
